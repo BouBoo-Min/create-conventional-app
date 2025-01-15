@@ -1,0 +1,1 @@
+export { default as useMask } from './useMask'

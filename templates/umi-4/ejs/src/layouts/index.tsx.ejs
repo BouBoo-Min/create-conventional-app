@@ -1,0 +1,15 @@
+import { Outlet } from 'umi'
+<%- dayjsImport -%>
+<%- vconsoleImport -%>
+
+<%- dayjsConfig -%>
+
+<%- vconsoleConfig -%>
+
+export default function Layout() {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+}

@@ -1,0 +1,48 @@
+// 单行省略隐藏
+.ellipsisText() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+// 多行省略隐藏
+.multiline-ellipsis(@num) {
+  display: -webkit-box;
+  -webkit-line-clamp: @num; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 设置字体大小10px
+.setFontSizeTen() {
+  font-size: 10px;
+  transform: scale(0.83333);
+  transform-origin: 0 0;
+}
+
+// 设置滚动条
+.setScrollbar() {
+  // 滚动条
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+}
+
+// 隐藏滚动条
+.hideScrollbar() {
+  // 滚动条
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

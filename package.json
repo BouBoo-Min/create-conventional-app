@@ -1,0 +1,71 @@
+{
+  "name": "create-conventional-app",
+  "version": "0.0.1",
+  "description": "约定代替编码的脚手架搭建工具",
+  "main": "outfile.cjs",
+  "bin": {
+    "create-conventional-app": "outfile.cjs"
+  },
+  "files": [
+    "outfile.cjs",
+    "templatesData.json",
+    "templates"
+  ],
+  "engines": {
+    "node": "^16.18.0 || >=16.0.0"
+  },
+  "scripts": {
+    "build": "zx ./scripts/build.mjs && node outfile.cjs",
+    "format": "prettier --write .",
+    "release": "standard-version",
+    "release-run": "standard-version --release-as patch --dry-run",
+    "release-minor": "standard-version --release-as minor",
+    "release-major": "standard-version --release-as major",
+    "release-patch": "standard-version --release-as patch",
+    "prepublishOnly": "zx ./scripts/prepublish.mjs",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "create-conventional-app",
+    "cli"
+  ],
+  "author": "Bouboo-Min",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BouBoo-Min/create-conventional-app"
+  },
+  "bugs": {
+    "url": "https://github.com/BouBoo-Min/create-conventional-app/issues"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.2",
+    "@types/fs-extra": "^11.0.1",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^18.13.0",
+    "@types/prompts": "^2.4.2",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "ejs": "^3.1.8",
+    "esbuild": "^0.17.8",
+    "fs-extra": "^11.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "minimist": "^1.2.8",
+    "prettier": "^2.8.4",
+    "prompts": "^2.4.2",
+    "standard-version": "^9.5.0",
+    "typescript": "^4.9.5",
+    "zx": "^7.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,json}": [
+      "prettier --write"
+    ]
+  }
+}

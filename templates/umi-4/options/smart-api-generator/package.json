@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "api": "smart-api create"
+  },
+  "dependencies": {
+    "smart-api-generator": "^1.3.5",
+    "axios": "^1.7.7"
+  }
+}
