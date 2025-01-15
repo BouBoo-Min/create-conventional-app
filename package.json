@@ -19,8 +19,8 @@
     "format": "prettier --write .",
     "release": "standard-version",
     "release-run": "standard-version --release-as patch --dry-run",
-    "release-minor": "standard-version --release-as minor",
     "release-major": "standard-version --release-as major",
+    "release-minor": "standard-version --release-as minor",
     "release-patch": "standard-version --release-as patch",
     "prepublishOnly": "zx ./scripts/prepublish.mjs",
     "prepare": "husky install"

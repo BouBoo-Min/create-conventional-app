@@ -1,11 +1,11 @@
-<h1 align="center">create-bouboo-app</h1>
+<h1 align="center">create-conventional-app</h1>
 <p align="center">约定代替编码，更灵活、迅速的脚手架搭建工具</p>
 
 ---
 
 ## 介绍
 
-create-bouboo-app 对脚手架核心业务进行封装，使用者只需关心脚手架的内容，约定代替编码的方式更灵活、迅速的创建脚手架。
+create-conventional-app 对脚手架核心业务进行封装，使用者只需关心脚手架的内容，约定代替编码的方式更灵活、迅速的创建脚手架。
 
 <br />
 
