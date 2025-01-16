@@ -13509,7 +13509,7 @@ var inquiry = async (autoLoad = false) => {
   if (projectName) {
     const projectExists = isProjectExists(projectName);
     if (projectExists) {
-      await handleProjectExists(projectName, "SHELL");
+      projectName = await handleProjectExists(projectName, "SHELL");
     }
   }
   const promptsArray = [
@@ -13529,7 +13529,7 @@ var inquiry = async (autoLoad = false) => {
         if (e.name === "projectName") {
           const projectExists = isProjectExists(projectName);
           if (projectExists) {
-            await handleProjectExists(projectName);
+            projectName = await handleProjectExists(projectName);
           }
         }
       },
@@ -13541,7 +13541,7 @@ var inquiry = async (autoLoad = false) => {
     console.log(handleCharkRgb("Termination procedure", 255, 0, 0));
     return null;
   }
-  promptsResult.projectName = promptsResult.projectName ?? defaultProjectName;
+  promptsResult.projectName = projectName;
   const config = deepAssign(initConfig, {
     projectName: promptsResult["projectName"],
     templateName: promptsResult["templateName"],
@@ -13552,35 +13552,84 @@ var inquiry = async (autoLoad = false) => {
 var handleProjectExists = async (projectName2, type) => {
   const projectNameBoldCyan = source_default.bold(source_default.cyan(projectName2));
   const deleteRed = handleCharkRgb("delete", 255, 0, 0);
-  const firstLine = `A project with the name "${projectNameBoldCyan}" already exists. Do you want to ${deleteRed} it?`;
-  const secondLine = `The deletion operation cannot be replied, please exercise caution!`;
-  const message = `${source_default.bold(firstLine)}
-
-${handleCharkRgb(secondLine, 255, 0, 0)}`;
-  const deletePrompt = await (0, import_prompts.default)({
-    type: "confirm",
-    name: "delete",
-    message: boxen(message, {
+  const renameBlue = handleCharkRgb("rename", 0, 0, 255);
+  const existsTip = `A project with the name "${projectNameBoldCyan}" already exists. Please select your operation??`;
+  const delTip = `The deletion operation cannot be replied, please exercise caution!`;
+  const actionPrompt = await (0, import_prompts.default)({
+    type: "select",
+    name: "action",
+    message: boxen(source_default.bold(existsTip), {
       padding: 1,
       margin: 1,
       borderStyle: "round",
       borderColor: "red"
     }),
-    initial: false
+    choices: [
+      { title: deleteRed, value: "delete" },
+      { title: renameBlue, value: "rename" }
+    ],
+    initial: 1
+    // 默认选择重命名
   });
-  if (deletePrompt.delete) {
-    await deleteDirectory(import_path3.default.join(process.cwd(), projectName2));
-  } else {
-    if (type === "SHELL") {
-      console.log(source_default.red("Termination procedure"));
+  if (actionPrompt.action === "delete") {
+    const deletePrompt = await (0, import_prompts.default)({
+      type: "confirm",
+      name: "delete",
+      message: boxen(handleCharkRgb(delTip, 255, 0, 0), {
+        padding: 1,
+        margin: 1,
+        borderStyle: "round",
+        borderColor: "red"
+      }),
+      initial: false
+    });
+    if (deletePrompt.delete) {
+      await deleteDirectory(import_path3.default.join(process.cwd(), projectName2));
+    } else {
+      if (type === "SHELL") {
+        console.log(source_default.red("Termination procedure"));
+      }
+      throw new Error("User canceled the program");
     }
-    throw new Error("User canceled the program");
+  } else if (actionPrompt.action === "rename") {
+    let newProjectName = projectName2;
+    let projectExists = true;
+    while (projectExists) {
+      const renamePrompt = await (0, import_prompts.default)({
+        name: "newProjectName",
+        type: "text",
+        message: "Enter a new project name:",
+        initial: `${newProjectName}`,
+        onState: (state) => newProjectName = String(state.value).trim() || `${newProjectName}`
+      });
+      if (renamePrompt.newProjectName) {
+        newProjectName = renamePrompt.newProjectName;
+      } else {
+        throw new Error("User canceled the program");
+      }
+      projectExists = isProjectExists(newProjectName);
+      if (projectExists) {
+        console.log(
+          handleCharkRgb(
+            `A project with the name "${source_default.bold(
+              source_default.cyan(newProjectName)
+            )}" already exists. Please enter a different name.`,
+            255,
+            0,
+            0
+          )
+        );
+      }
+    }
+    return newProjectName;
   }
+  return projectName2;
 };
 
 // index.ts
 async function init() {
   let config = await inquiry(true);
+  console.log({ config });
   if (!config)
     return process.exit();
   const buddhaCodeBlock = `

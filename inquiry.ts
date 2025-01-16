@@ -88,7 +88,7 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
     const projectExists = isProjectExists(projectName)
 
     if (projectExists) {
-      await handleProjectExists(projectName, 'SHELL')
+      projectName = await handleProjectExists(projectName, 'SHELL')
     }
   }
 
@@ -111,7 +111,7 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
           const projectExists = isProjectExists(projectName as string)
 
           if (projectExists) {
-            await handleProjectExists(projectName as string)
+            projectName = await handleProjectExists(projectName as string)
           }
         }
       },
@@ -129,7 +129,7 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
     return null // 返回特定的终止值
   }
 
-  promptsResult.projectName = promptsResult.projectName ?? defaultProjectName
+  promptsResult.projectName = projectName
 
   const config: configType = deepAssign(initConfig, {
     projectName: promptsResult['projectName'],
@@ -143,28 +143,85 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
 const handleProjectExists = async (projectName: string, type?: string | undefined) => {
   const projectNameBoldCyan = chalk.bold(chalk.cyan(projectName))
   const deleteRed = handleCharkRgb('delete', 255, 0, 0)
-  const firstLine = `A project with the name "${projectNameBoldCyan}" already exists. Do you want to ${deleteRed} it?`
-  const secondLine = `The deletion operation cannot be replied, please exercise caution!`
+  const renameBlue = handleCharkRgb('rename', 0, 0, 255)
+  const existsTip = `A project with the name "${projectNameBoldCyan}" already exists. Please select your operation??`
+  const delTip = `The deletion operation cannot be replied, please exercise caution!`
 
-  const message = `${chalk.bold(firstLine)}\n\n${handleCharkRgb(secondLine, 255, 0, 0)}`
-  const deletePrompt = await prompts({
-    type: 'confirm',
-    name: 'delete',
-    message: boxen(message, {
+  const actionPrompt = await prompts({
+    type: 'select',
+    name: 'action',
+    message: boxen(chalk.bold(existsTip), {
       padding: 1,
       margin: 1,
       borderStyle: 'round',
       borderColor: 'red'
     }),
-    initial: false
+    choices: [
+      { title: deleteRed, value: 'delete' },
+      { title: renameBlue, value: 'rename' }
+    ],
+    initial: 1 // 默认选择重命名
   })
 
-  if (deletePrompt.delete) {
-    await deleteDirectory(path.join(process.cwd(), projectName))
-  } else {
-    if (type === 'SHELL') {
-      console.log(chalk.red('Termination procedure'))
+  if (actionPrompt.action === 'delete') {
+    const deletePrompt = await prompts({
+      type: 'confirm',
+      name: 'delete',
+      message: boxen(handleCharkRgb(delTip, 255, 0, 0), {
+        padding: 1,
+        margin: 1,
+        borderStyle: 'round',
+        borderColor: 'red'
+      }),
+      initial: false
+    })
+
+    if (deletePrompt.delete) {
+      await deleteDirectory(path.join(process.cwd(), projectName))
+    } else {
+      if (type === 'SHELL') {
+        console.log(chalk.red('Termination procedure'))
+      }
+      throw new Error('User canceled the program')
     }
-    throw new Error('User canceled the program')
+  } else if (actionPrompt.action === 'rename') {
+    let newProjectName = projectName
+    let projectExists = true
+
+    while (projectExists) {
+      // 重新输入项目名称
+      const renamePrompt = await prompts({
+        name: 'newProjectName',
+        type: 'text',
+        message: 'Enter a new project name:',
+        initial: `${newProjectName}`,
+        onState: (state: any) => (newProjectName = String(state.value).trim() || `${newProjectName}`)
+      })
+
+      if (renamePrompt.newProjectName) {
+        newProjectName = renamePrompt.newProjectName
+      } else {
+        throw new Error('User canceled the program')
+      }
+
+      projectExists = isProjectExists(newProjectName)
+
+      if (projectExists) {
+        console.log(
+          handleCharkRgb(
+            `A project with the name "${chalk.bold(
+              chalk.cyan(newProjectName)
+            )}" already exists. Please enter a different name.`,
+            255,
+            0,
+            0
+          )
+        )
+      }
+    }
+
+    return newProjectName // 返回新的项目名称
   }
+
+  return projectName // 默认返回原项目名称
 }
