@@ -1,4 +1,11 @@
 变更日志
+## [1.2.0](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.1.0...v1.2.0) (2025-01-16)
+
+
+### ✨ Features | 新功能
+
+* 重名逻辑优化交互 ([9a33993](https://github.com/BouBoo-Min/create-conventional-app/commit/9a339934f92fdb40f1cbfe440b28999592df4378))
+
 ## [1.1.0](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.0.0...v1.1.0) (2025-01-16)
 
 
