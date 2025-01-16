@@ -2,7 +2,17 @@ import fs from 'fs'
 import minimist from 'minimist'
 import path from 'path'
 import prompts from 'prompts'
-import { configType, configTypeDeepRequired, deepAssign, readJsonFile } from './utils'
+import chalk from 'chalk'
+import boxen from 'boxen'
+import {
+  configType,
+  configTypeDeepRequired,
+  deepAssign,
+  deleteDirectory,
+  handleCharkRgb,
+  isProjectExists,
+  readJsonFile
+} from './utils'
 import { defaultConfig } from './utils/defaultConfig'
 
 const argv = minimist(process.argv.slice(2), { string: ['_'] })
@@ -73,6 +83,15 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
 
   const promptsOptions: Array<any> = handleOptions(autoLoad, initConfig)
 
+  // 检查命令行参数传递的项目名称是否存在
+  if (projectName) {
+    const projectExists = isProjectExists(projectName)
+
+    if (projectExists) {
+      await handleProjectExists(projectName, 'SHELL')
+    }
+  }
+
   const promptsArray: Array<any> = [
     {
       name: 'projectName',
@@ -87,6 +106,15 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
   let promptsResult
   try {
     promptsResult = (await prompts(promptsArray, {
+      onSubmit: async (e) => {
+        if (e.name === 'projectName') {
+          const projectExists = isProjectExists(projectName as string)
+
+          if (projectExists) {
+            await handleProjectExists(projectName as string)
+          }
+        }
+      },
       onCancel: () => {
         // User canceled the program
         throw new Error('User canceled the program')
@@ -97,7 +125,7 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
       options: Array<string>
     }
   } catch (error) {
-    console.log('Termination procedure')
+    console.log(handleCharkRgb('Termination procedure', 255, 0, 0))
     return null // 返回特定的终止值
   }
 
@@ -110,4 +138,33 @@ export const inquiry = async (autoLoad: boolean = false): Promise<configType | n
   })
 
   return config
+}
+
+const handleProjectExists = async (projectName: string, type?: string | undefined) => {
+  const projectNameBoldCyan = chalk.bold(chalk.cyan(projectName))
+  const deleteRed = handleCharkRgb('delete', 255, 0, 0)
+  const firstLine = `A project with the name "${projectNameBoldCyan}" already exists. Do you want to ${deleteRed} it?`
+  const secondLine = `The deletion operation cannot be replied, please exercise caution!`
+
+  const message = `${chalk.bold(firstLine)}\n\n${handleCharkRgb(secondLine, 255, 0, 0)}`
+  const deletePrompt = await prompts({
+    type: 'confirm',
+    name: 'delete',
+    message: boxen(message, {
+      padding: 1,
+      margin: 1,
+      borderStyle: 'round',
+      borderColor: 'red'
+    }),
+    initial: false
+  })
+
+  if (deletePrompt.delete) {
+    await deleteDirectory(path.join(process.cwd(), projectName))
+  } else {
+    if (type === 'SHELL') {
+      console.log(chalk.red('Termination procedure'))
+    }
+    throw new Error('User canceled the program')
+  }
 }

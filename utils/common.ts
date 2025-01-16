@@ -1,5 +1,7 @@
 import fs from 'fs'
 import path from 'path'
+import ora from 'ora'
+import chalk from 'chalk'
 
 const isObject = (val: any) => val && typeof val === 'object'
 
@@ -143,4 +145,47 @@ export const deepAssign = (defaultObject: any, targetObject: any) => {
   })
 
   return defaultObject
+}
+
+/**
+ * 判断当前工作目录是否存在重命项目
+ * @param projectName 项目名
+ */
+export const isProjectExists = (projectName: string): boolean => {
+  const cwd = process.cwd()
+  const targetDirectory = path.join(cwd, projectName)
+  return fs.existsSync(targetDirectory)
+}
+
+/**
+ * 删除文件夹
+ * @param dirPath 删除目录路径
+ */
+export const deleteDirectory = async (dirPath: string) => {
+  // 使用蓝色表示删除中
+  const spinner = ora(chalk.blue(`Deleting existing project: ${path.basename(dirPath)}`)).start()
+
+  try {
+    if (fs.existsSync(dirPath)) {
+      await fs.promises.rm(dirPath, { recursive: true })
+    }
+    // 使用绿色表示删除成功
+    spinner.succeed(handleCharkRgb(`Project: ${path.basename(dirPath)} deleted successfully`))
+  } catch (error) {
+    // 使用红色表示删除失败
+    spinner.fail(handleCharkRgb(`Project: ${path.basename(dirPath)} deleted failed`, 255, 0, 0))
+    throw error
+  }
+}
+
+/**
+ * 设置chalk命令行颜色
+ * @param title
+ * @param r
+ * @param g
+ * @param b
+ * @returns
+ */
+export const handleCharkRgb = (title: string, r = 0, g = 255, b = 0) => {
+  return chalk.rgb(r, g, b)(title)
 }

@@ -67,5 +67,10 @@
     "*.{js,ts,vue,json}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "ora": "^8.1.1"
   }
 }
