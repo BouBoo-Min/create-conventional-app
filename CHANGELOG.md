@@ -1,4 +1,11 @@
 变更日志
+### [1.2.1](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.0...v1.2.1) (2025-01-17)
+
+
+### ✨ Features | 新功能
+
+* 包node版本依赖降低 ([67acf20](https://github.com/BouBoo-Min/create-conventional-app/commit/67acf20bf1495aa735dd1755b3fd993bee675e3b))
+
 ## [1.2.0](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.1.0...v1.2.0) (2025-01-16)
 
 
