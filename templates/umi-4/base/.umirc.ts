@@ -33,10 +33,4 @@ export default defineConfig({
   request: {},
   historyWithQuery: {},
   proxy,
-  // 配置全局变量文件
-  lessLoader: {
-    modifyVars: {
-      hack: 'true; @import "@/styles/variables.less";',
-    },
-  },
 });

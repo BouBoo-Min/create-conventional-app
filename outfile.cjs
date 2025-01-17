@@ -18746,7 +18746,6 @@ var handleProjectExists = async (projectName2, type) => {
 // index.ts
 async function init() {
   let config = await inquiry(true);
-  console.log({ config });
   if (!config)
     return process.exit();
   const buddhaCodeBlock = `

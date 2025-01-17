@@ -21,6 +21,13 @@ module.exports = {
     }
   `,
   faviconsConfig: `"https://static.leke.cn/images/common/favicon.ico"`,
+  lessLoaderConfig: `// 配置全局变量文件
+  lessLoader: {
+    modifyVars: {
+      hack: 'true; @import "@/styles/variables.less";',
+    }
+  }
+  `,
   arr: ['selfConfig个人配置'],
   callback({ targetPath, config, ejsData }) {}
 }
