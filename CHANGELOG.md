@@ -1,4 +1,11 @@
 变更日志
+### [1.2.2](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.1...v1.2.2) (2025-01-20)
+
+
+### ✨ Features | 新功能
+
+* umi-4模板调整 ([ac407d7](https://github.com/BouBoo-Min/create-conventional-app/commit/ac407d72c2b75aac1c31cf59443761cfd3f0d040))
+
 ### [1.2.1](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.0...v1.2.1) (2025-01-17)
 
 
