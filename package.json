@@ -9,7 +9,8 @@
   "files": [
     "outfile.cjs",
     "templatesData.json",
-    "templates"
+    "templates",
+    ".gitignore"
   ],
   "engines": {
     "node": "^16.18.0 || >=16.0.0"
