@@ -1,23 +1,50 @@
 {
   "private": true,
-  "name": "new-app",
   "scripts": {
     "dev": "umi dev",
     "build": "umi build",
-    "postinstall": "umi setup",
+    "postinstall": "umi setup && husky install",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/lodash": "^4.14.192",
     "@umijs/plugins": "^4.3.31",
-    "antd-mobile": "^5.38.1",
     "lodash": "^4.17.21",
     "umi": "^4.3.31"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "5.30.7",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "husky": "^8",
+    "inquirer": "^8.0.0",
+    "lint-staged": "^13.0.4",
+    "prettier": "^2.7.1",
     "typescript": "^5.0.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "stylelint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }

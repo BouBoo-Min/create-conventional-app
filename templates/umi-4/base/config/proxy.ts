@@ -5,11 +5,11 @@
  * @doc 参考文档：https://umijs.org/docs/guides/proxy
  */
 const proxy: PROXY = {
-  "/dev": {
-    target: "https://letao.cnstrong.cn",
+  '/dev': {
+    target: 'https://letao.cnstrong.cn',
     changeOrigin: true,
-    pathRewrite: { "^/dev": "" },
-  },
-};
+    pathRewrite: { '^/dev': '' }
+  }
+}
 
-export default proxy;
+export default proxy

@@ -18411,6 +18411,7 @@ var import_ejs = __toESM(require_ejs());
 var import_fs2 = __toESM(require("fs"));
 var import_fs_extra = __toESM(require_lib2());
 var import_path2 = __toESM(require("path"));
+var import_child_process = require("child_process");
 
 // utils/defaultConfig.ts
 var defaultConfig = {
@@ -18562,8 +18563,21 @@ var endFolw = (allConfig) => {
     let _data = readJsonFile(RootPackageJsonPath);
     _data.name = import_path2.default.basename(targetPath);
     _data.version = "1.0.0";
-    _data.private = _data.private ? false : _data.private;
-    let str = JSON.stringify(_data, null, 2);
+    _data.private = _data.private ? _data.private : true;
+    try {
+      const userName = (0, import_child_process.execSync)("git config user.name").toString().trim();
+      const userEmail = (0, import_child_process.execSync)("git config user.email").toString().trim();
+      _data.author = `${userName} <${userEmail}>`;
+    } catch (error) {
+    }
+    const orderedData = {
+      private: _data.private,
+      name: _data.name,
+      version: _data.version,
+      author: _data.author,
+      ..._data
+    };
+    let str = JSON.stringify(orderedData, null, 2);
     import_fs2.default.writeFileSync(RootPackageJsonPath, str);
   }
 };
@@ -18743,39 +18757,41 @@ var handleProjectExists = async (projectName2, type) => {
   return projectName2;
 };
 
-// index.ts
-async function init() {
-  let config = await inquiry(true);
-  if (!config)
-    return process.exit();
-  const buddhaCodeBlock = `
-                      _o0o_
-                    __ooOoo__
-                    o8888888o
-                    88" . "88
-                    (| -_- |)
-                     O\\ = /O
-                 ____/'---'\\____
-                  .' \\\\| |// '.
-                / \\\\||| : |||// \\
-              / _||||| -:- |||||- \\
-                | | \\\\\\ - /// | |
-              | \\_| ''\\---/'' |_/ |
-               \\ .-\\__ '-' ___/-. /
-            ___'. .' /--.--\\ '. .'__
+// utils/const.ts
+var buddhaCodeBlock = `
+                     _o0o_
+                   __ooOoo__
+                   o8888888o
+                   88" . "88
+                   (| -_- |)
+                    O\\ = /O
+                ____/'---'\\____
+                 .' \\\\| |// '.
+               / \\\\||| : |||// \\
+             / _||||| -:- |||||- \\
+               | | \\\\\\ - /// | |
+             | \\_| ''\\---/'' |_/ |
+              \\ .-\\__ '-' ___/-. /
+           ___'. .' /--.--\\ '. .'__
          ."" '< '.___\\_<|>_/___.' >'"".
         | | : ' - \\'.'\\ _ /'.'/ - ' : | |
           \\ \\ '-. \\_ __\\ /__ _/ .-' / /
   ======'-.____'-.___\\_____/___.-'____.-'======
                      '=---='
 
-  =============================================
+  ==============================================
                    \u5535\u561B\u5462\u53ED\u54AA\u543D
                      \u9547\u538B\u90AA\u795F
 `;
+
+// index.ts
+async function init() {
+  let config = await inquiry(true);
+  if (!config)
+    return process.exit();
   createTemplate(config, ({ targetPath }) => {
     console.log(source_default.yellow(buddhaCodeBlock));
-    console.log(handleCharkRgb(`\u606D\u559C\u4F60\u9879\u76EE\u6210\u529F\u521B\u5EFA\uFF01\u9879\u76EE\u8DEF\u5F84\u4E3A\uFF1A
+    console.log(handleCharkRgb(`\u606D\u559C\u4F60,\u9879\u76EE\u521B\u5EFA\u5B8C\u6210\uFF01\u8DEF\u5F84\u4E3A\uFF1A
   ${source_default.bold(source_default.cyan(targetPath))}`));
   });
 }

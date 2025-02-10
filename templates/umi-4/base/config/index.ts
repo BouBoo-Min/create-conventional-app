@@ -1,4 +1,4 @@
-import proxy from "./proxy";
-import routes from "./routes";
+import proxy from './proxy'
+import routes from './routes'
 
-export { proxy, routes };
+export { proxy, routes }

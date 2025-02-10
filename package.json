@@ -27,7 +27,10 @@
   },
   "keywords": [
     "create-conventional-app",
-    "cli"
+    "cli",
+    "template",
+    "脚手架",
+    "create"
   ],
   "author": "Bouboo-Min",
   "license": "MIT",

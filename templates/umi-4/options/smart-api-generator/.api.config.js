@@ -5,7 +5,7 @@ module.exports = {
     {
       projectName: "项目名",
       tags: ["tab标签"],
-      extractAxiosPromise: true,
+      extractAxiosPromise: true
     },
   ],
 };

@@ -1,0 +1,18 @@
+{
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser", // 使用 TypeScript 解析器
+  "plugins": ["@typescript-eslint", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/display-name": "off",
+    "@typescript-eslint/no-duplicate-imports": "off",
+    "react/prop-types": "off",
+    "react/no-children-prop": "off",
+    "no-undefined": "off"
+  }
+}

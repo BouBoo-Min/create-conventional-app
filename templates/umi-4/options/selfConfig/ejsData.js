@@ -4,20 +4,20 @@ module.exports = {
     {
       name: "viewport",
       content:
-        "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover",
+        "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
     }
   `,
   linksConfig: `
     {
       rel: "stylesheet",
       type: "text/css",
-      href: "https://static.leke.cn/styles/common/iconfont/iconfont.css",
+      href: "https://static.leke.cn/styles/common/iconfont/iconfont.css"
     }
   `,
   scriptsConfig: `
    {
       src: "https://static.leke.cn/styles/common/iconfont/iconfont.js",
-      defer: true,
+      defer: true
     }
   `,
   faviconsConfig: `"https://static.leke.cn/images/common/favicon.ico"`,
@@ -26,7 +26,7 @@ module.exports = {
     modifyVars: {
       hack: 'true; @import "@/styles/variables.less";',
     }
-  }
+  },
   `,
   arr: ['selfConfig个人配置'],
   callback({ targetPath, config, ejsData }) {}

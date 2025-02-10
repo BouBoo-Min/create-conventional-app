@@ -5,18 +5,18 @@
  */
 export default [
   {
-    path: "/",
-    redirect: "/home",
+    path: '/',
+    redirect: '/home'
   },
   {
-    path: "/home",
-    component: "./Home",
-    name: "首页",
+    path: '/home',
+    component: './Home',
+    name: '首页'
   },
-  { path: "/403", component: "403" },
+  { path: '/403', component: '403' },
   {
-    path: "*",
+    path: '*',
     layout: false,
-    component: "404",
-  },
-];
+    component: '404'
+  }
+]

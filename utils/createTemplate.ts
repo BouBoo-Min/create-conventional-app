@@ -2,6 +2,7 @@ import ejs from 'ejs'
 import fs from 'fs'
 import fse from 'fs-extra'
 import path from 'path'
+import { execSync } from 'child_process'
 import { deepAssign, joinPath, mergePackage, myTypeof, readJsonFile, recursionDir } from './common'
 import { defaultConfig } from './defaultConfig'
 import { allConfigType, configType, configTypeDeepRequired } from './types'
@@ -188,9 +189,28 @@ const endFolw = (allConfig: allConfigType) => {
     let _data: any = readJsonFile(RootPackageJsonPath)
     _data.name = path.basename(targetPath)
     _data.version = '1.0.0'
-    _data.private = _data.private ? false : _data.private
+    _data.private = _data.private ? _data.private : true
 
-    let str = JSON.stringify(_data, null, 2)
+    // 获取 Git 用户信息
+    try {
+      const userName = execSync('git config user.name').toString().trim()
+      const userEmail = execSync('git config user.email').toString().trim()
+      _data.author = `${userName} <${userEmail}>`
+    } catch (error) {
+      // console.error('Failed to get Git user information:', error)
+      // _data.author = '' // 默认值
+    }
+
+    // 重新排列对象的键顺序
+    const orderedData = {
+      private: _data.private,
+      name: _data.name,
+      version: _data.version,
+      author: _data.author,
+      ..._data
+    }
+
+    let str = JSON.stringify(orderedData, null, 2)
     fs.writeFileSync(RootPackageJsonPath, str)
   }
 }
