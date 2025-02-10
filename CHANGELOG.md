@@ -1,4 +1,11 @@
 变更日志
+### [1.2.3](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.2...v1.2.3) (2025-02-10)
+
+
+### ✨ Features | 新功能
+
+* umi4配置husky ([70b696d](https://github.com/BouBoo-Min/create-conventional-app/commit/70b696d4b5272fad0288dc772c1d826da5ec6553))
+
 ### [1.2.2](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.1...v1.2.2) (2025-01-20)
 
 
