@@ -58,6 +58,7 @@ const renderBase = (allConfig: allConfigType) => {
   fse.copySync(basePath, targetPath, {
     filter(src) {
       const basename = path.basename(src)
+      console.log({ basename })
 
       return basename !== 'node_modules'
     }
