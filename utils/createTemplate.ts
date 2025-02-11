@@ -58,11 +58,18 @@ const renderBase = (allConfig: allConfigType) => {
   fse.copySync(basePath, targetPath, {
     filter(src) {
       const basename = path.basename(src)
-      console.log({ basename })
-
-      return basename !== 'node_modules' && basename !== '.gitignore'
+      console.log({ basename }, '1')
+      return basename !== 'node_modules'
     }
   })
+
+  // 检查目标路径中是否存在 .npmignore 文件，并重命名为 .gitignore
+  const npmignorePath = path.join(targetPath, '.npmignore')
+  const gitignorePath = path.join(targetPath, '.gitignore')
+
+  if (fse.existsSync(npmignorePath)) {
+    fse.renameSync(npmignorePath, gitignorePath)
+  }
 }
 
 // 递归初始化ejs的值,防止ejs模板undefind报错
