@@ -1,4 +1,11 @@
 变更日志
+### [1.2.9](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.8...v1.2.9) (2025-02-11)
+
+
+### ✅ Tests | 测试
+
+* 调试npm官网问题 ([984cbb9](https://github.com/BouBoo-Min/create-conventional-app/commit/984cbb9f10838857f6676dc9288f6d520a0a733e))
+
 ### [1.2.8](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.7...v1.2.8) (2025-02-11)
 
 
