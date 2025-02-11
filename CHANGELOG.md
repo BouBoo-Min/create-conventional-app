@@ -1,4 +1,6 @@
 变更日志
+### [1.2.6](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.5...v1.2.6) (2025-02-11)
+
 ### [1.2.5](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.4...v1.2.5) (2025-02-10)
 
 ### [1.2.4](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.3...v1.2.4) (2025-02-10)
