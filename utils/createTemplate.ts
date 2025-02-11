@@ -58,11 +58,11 @@ const renderBase = (allConfig: allConfigType) => {
   fse.copySync(basePath, targetPath, {
     filter(src) {
       const basename = path.basename(src)
-      console.log({ basename }, '1')
       return basename !== 'node_modules'
     }
   })
 
+  // 特殊处理发版到npm官网后，.gitignore被忽略，通过配置files字段使其发布到npm官网，但是下载时会被重命名为.npmignore的情况
   // 检查目标路径中是否存在 .npmignore 文件，并重命名为 .gitignore
   const npmignorePath = path.join(targetPath, '.npmignore')
   const gitignorePath = path.join(targetPath, '.gitignore')

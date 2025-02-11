@@ -18460,9 +18460,15 @@ var renderBase = (allConfig) => {
   import_fs_extra.default.copySync(basePath, targetPath, {
     filter(src) {
       const basename = import_path2.default.basename(src);
+      console.log({ basename }, "1");
       return basename !== "node_modules";
     }
   });
+  const npmignorePath = import_path2.default.join(targetPath, ".npmignore");
+  const gitignorePath = import_path2.default.join(targetPath, ".gitignore");
+  if (import_fs_extra.default.existsSync(npmignorePath)) {
+    import_fs_extra.default.renameSync(npmignorePath, gitignorePath);
+  }
 };
 var initOptionsEjsData = (allConfig) => {
   const { optionsPath, ejsDataJsAlias, ejsData } = allConfig;
@@ -18757,40 +18763,12 @@ var handleProjectExists = async (projectName2, type) => {
   return projectName2;
 };
 
-// utils/const.ts
-var buddhaCodeBlock = `
-                     _o0o_
-                   __ooOoo__
-                   o8888888o
-                   88" . "88
-                   (| -_- |)
-                    O\\ = /O
-                ____/'---'\\____
-                 .' \\\\| |// '.
-               / \\\\||| : |||// \\
-             / _||||| -:- |||||- \\
-               | | \\\\\\ - /// | |
-             | \\_| ''\\---/'' |_/ |
-              \\ .-\\__ '-' ___/-. /
-           ___'. .' /--.--\\ '. .'__
-         ."" '< '.___\\_<|>_/___.' >'"".
-        | | : ' - \\'.'\\ _ /'.'/ - ' : | |
-          \\ \\ '-. \\_ __\\ /__ _/ .-' / /
-  ======'-.____'-.___\\_____/___.-'____.-'======
-                     '=---='
-
-  ==============================================
-                   \u5535\u561B\u5462\u53ED\u54AA\u543D
-                     \u9547\u538B\u90AA\u795F
-`;
-
 // index.ts
 async function init() {
   let config = await inquiry(true);
   if (!config)
     return process.exit();
   createTemplate(config, ({ targetPath }) => {
-    console.log(source_default.yellow(buddhaCodeBlock));
     console.log(handleCharkRgb(`\u606D\u559C\u4F60,\u9879\u76EE\u521B\u5EFA\u5B8C\u6210\uFF01\u8DEF\u5F84\u4E3A\uFF1A
   ${source_default.bold(source_default.cyan(targetPath))}`));
   });
