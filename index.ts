@@ -11,7 +11,7 @@ async function init() {
   if (!config) return process.exit()
 
   createTemplate(config, ({ targetPath }) => {
-    console.log(chalk.yellow(buddhaCodeBlock))
+    // console.log(chalk.yellow(buddhaCodeBlock))
     console.log(handleCharkRgb(`恭喜你,项目创建完成！路径为：\n  ${chalk.bold(chalk.cyan(targetPath))}`))
   })
 }

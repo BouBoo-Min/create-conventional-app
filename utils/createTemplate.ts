@@ -60,7 +60,7 @@ const renderBase = (allConfig: allConfigType) => {
       const basename = path.basename(src)
       console.log({ basename })
 
-      return basename !== 'node_modules'
+      return basename !== 'node_modules' && basename !== '.gitignore'
     }
   })
 }
