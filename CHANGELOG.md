@@ -1,4 +1,11 @@
 变更日志
+### [1.2.8](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.7...v1.2.8) (2025-02-11)
+
+
+### ✅ Tests | 测试
+
+* 测试npm包.gitignore的下载问题 ([23ae6e0](https://github.com/BouBoo-Min/create-conventional-app/commit/23ae6e0b769bf174f540d05f1af703829a0256df))
+
 ### [1.2.7](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.6...v1.2.7) (2025-02-11)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "create-conventional-app",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "约定代替编码的脚手架搭建工具",
   "main": "outfile.cjs",
   "bin": {
