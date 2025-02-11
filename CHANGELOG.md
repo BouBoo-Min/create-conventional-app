@@ -1,4 +1,16 @@
 变更日志
+## [1.3.0](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.9...v1.3.0) (2025-02-11)
+
+
+### ✅ Tests | 测试
+
+* 调试npm官网问题 ([01038e5](https://github.com/BouBoo-Min/create-conventional-app/commit/01038e50dff9ad7506bf481dd28f01517c77bef2))
+
+
+### 🐛 Bug Fixes | Bug 修复
+
+* 解决npm官网下载模板.gitignore重命名问题 ([02e4042](https://github.com/BouBoo-Min/create-conventional-app/commit/02e4042bd48d2e9daf46ebddff966fcaf178c7b2))
+
 ### [1.2.9](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.8...v1.2.9) (2025-02-11)
 
 
