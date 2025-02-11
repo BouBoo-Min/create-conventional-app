@@ -1,4 +1,11 @@
 变更日志
+### [1.2.7](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.6...v1.2.7) (2025-02-11)
+
+
+### ✨ Features | 新功能
+
+* 去除.npmignore ([d36ba5b](https://github.com/BouBoo-Min/create-conventional-app/commit/d36ba5bc5e8465172a376feef4799731a08ea05c))
+
 ### [1.2.6](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.5...v1.2.6) (2025-02-11)
 
 ### [1.2.5](https://github.com/BouBoo-Min/create-conventional-app/compare/v1.2.4...v1.2.5) (2025-02-10)
